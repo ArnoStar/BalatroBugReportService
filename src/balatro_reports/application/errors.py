@@ -21,7 +21,7 @@ class NotAdmin(DomainError):
     code = "not_admin"
 
     def __init__(self) -> None:
-        super().__init__("reading reports is for the developers (BALATRO_REPORTS_ADMINS)")
+        super().__init__("reading reports is for the developers (the developer role)")
 
 
 class TooManyReports(DomainError):
