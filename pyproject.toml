@@ -1,0 +1,48 @@
+[project]
+name = "balatro-bug-report-service"
+version = "0.1.0"
+description = "Bug reports from the Balatro game in the browser, with everything needed to replay the bug"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "psycopg[binary]>=3.2",
+    "psycopg-pool>=3.2",
+    "pyjwt[crypto]>=2.10",
+    "uvicorn>=0.30",
+]
+
+[project.scripts]
+balatro-reports = "balatro_reports.main:run"
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.16",
+    "mypy>=1.11",
+    "pytest>=8",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+
+[tool.ruff]
+line-length = 120
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "TID"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+packages = ["balatro_reports"]
