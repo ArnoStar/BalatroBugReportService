@@ -6,7 +6,8 @@ import base64
 from typing import Any
 
 # a 1x1 PNG
-PNG = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==")
+PNG = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9aw"
+                       "AAAABJRU5ErkJggg==")
 HISTORY = {"id": "g1", "version": 2, "engine_version": "0.4.0",
            "settings": {"seed": "TESTSEED", "deck": "b_red", "stake": 1, "challenge": None, "game_speed": 1.0},
            "commands": [{"cmd": "select_blind"}, {"cmd": "play", "cards": [0, 1, 2, 3, 4]}]}
