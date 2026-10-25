@@ -17,8 +17,8 @@ player did on it.
    (docs/recording.md). Don't reshape them; a new field is the game's change.
 2. **A report never loses its run.** It holds a copy of the run's history, so
    deleting the run in the API doesn't matter.
-3. **Players don't read reports.** Only admins (`BALATRO_REPORTS_ADMINS`)
-   read and triage them; a player sees the list of their own. Never put
+3. **Players don't read reports.** Only admins (the developer and admin
+   roles, or `BALATRO_REPORTS_ADMINS`) read and triage them; a player sees the list of their own. Never put
    another player's report, or any report's recording, in a player's answer.
 4. **No secrets in reports.** The game records its API traffic without
    headers (no tokens); keep it that way on both sides.

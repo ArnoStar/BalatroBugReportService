@@ -41,16 +41,18 @@ Errors are problem details with a stable `code` (`not_admin`,
 `report_not_found`, `invalid_report`, `too_many_reports`, `too_large`,
 `unauthenticated`). Interactive docs at `/docs`.
 
-**Admins** are the accounts (the identity service's ids) in
-`BALATRO_REPORTS_ADMINS`. Without sign-in everyone is the same player, and an
-admin. To find an account's id, sign in and open `/reports/v1/me`.
+**Admins** (who read and triage reports) are the accounts with the
+`developer` or `admin` role (the identity service's `roles` claim; given in the
+portal's `/admin`), and the account ids in `BALATRO_REPORTS_ADMINS`. Without
+sign-in everyone is the same player, and an admin. `/v1/me` says who you are,
+your roles, and whether you are an admin here.
 
 ## Settings
 
 | Variable | Default | |
 |---|---|---|
 | `BALATRO_REPORTS_DATABASE_URL` | `postgresql://reports:reports@127.0.0.1:55434/reports` (`make db`) | PostgreSQL, or `memory` |
-| `BALATRO_REPORTS_ADMINS` | none | account ids that read and triage reports |
+| `BALATRO_REPORTS_ADMINS` | none | account ids that read and triage reports, besides the developer and admin roles |
 | `BALATRO_REPORTS_AUTH_JWKS_URL` | unset (sign-in off) | the identity service's `/.well-known/jwks.json` |
 | `BALATRO_REPORTS_AUTH_ISSUER` | | required with the JWKS URL: the identity service's `PUBLIC_URL` |
 | `BALATRO_REPORTS_AUTH_AUDIENCE` | `balatro` | |

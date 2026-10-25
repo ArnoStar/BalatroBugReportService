@@ -27,12 +27,20 @@ class Authenticate:
         return self.authenticator.authenticate(token)
 
 
+# the identity service's roles that read and triage reports
+READER_ROLES = frozenset({"developer", "admin"})
+
+
 class Admins:
+    """Who reads and triages reports: the developer and admin roles, the
+    accounts in BALATRO_REPORTS_ADMINS, and everyone without sign-in."""
+
     def __init__(self, ids: Sequence[str]) -> None:
         self.ids = frozenset(ids)
 
     def __contains__(self, player: object) -> bool:
-        return isinstance(player, Player) and (player.id in self.ids or player.id == ANONYMOUS_PLAYER)
+        return isinstance(player, Player) and (
+            bool(player.roles & READER_ROLES) or player.id in self.ids or player.id == ANONYMOUS_PLAYER)
 
     def check(self, player: Player) -> None:
         if player not in self:
@@ -51,7 +59,7 @@ class WhoAmI:
         self.admins = admins
 
     def __call__(self, player: Player) -> Me:
-        return Me(id=player.id, name=player.name, admin=player in self.admins)
+        return Me(id=player.id, name=player.name, roles=sorted(player.roles), admin=player in self.admins)
 
 
 class SubmitReport:

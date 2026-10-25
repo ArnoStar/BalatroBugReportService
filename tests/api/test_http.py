@@ -49,7 +49,7 @@ def test_a_report_from_the_game_to_the_developers(client):
 
 def test_only_admins_read_reports(client):
     rid = client.post("/v1/reports", json=body(), headers=ALICE).json()["id"]
-    assert client.get("/v1/me", headers=ALICE).json() == {"id": "alice", "name": "Alice", "admin": False}
+    assert client.get("/v1/me", headers=ALICE).json() == {"id": "alice", "name": "Alice", "roles": [], "admin": False}
     assert client.get("/v1/me", headers=DEV).json()["admin"] is True
     for method, url in [("GET", "/v1/reports"), ("GET", f"/v1/reports/{rid}"), ("PATCH", f"/v1/reports/{rid}"),
                         ("GET", f"/v1/reports/{rid}/screenshot")]:
@@ -91,3 +91,11 @@ def test_screenshot_urls_follow_the_mount_point(client):
     rid = client.post("/v1/reports", json=body(), headers=ALICE).json()["id"]
     full = client.get(f"/v1/reports/{rid}", headers={**DEV, "X-Forwarded-Prefix": "/reports"}).json()
     assert full["screenshot_url"] == f"/reports/v1/reports/{rid}/screenshot"
+
+
+def test_the_developer_role_reads_reports(client):
+    rid = client.post("/v1/reports", json=body(), headers=ALICE).json()["id"]
+    for roles, ok in ((["developer"], True), (["admin"], True), (["tester"], False), (["emperor"], False)):
+        who = {"Authorization": f"Bearer {token(sub='someone', roles=roles)}"}
+        assert client.get("/v1/me", headers=who).json()["admin"] is ok
+        assert (client.get(f"/v1/reports/{rid}", headers=who).status_code == 200) is ok, roles

@@ -17,13 +17,15 @@ class Player:
 
     id: str
     name: str | None = None
+    roles: frozenset[str] = frozenset()  # the token's ``roles``
 
 
 @dataclass(frozen=True, kw_only=True)
 class Me:
     id: str
     name: str | None
-    admin: bool  # may read and triage every report
+    roles: list[str]
+    admin: bool  # may read and triage every report (the developer or admin role, or BALATRO_REPORTS_ADMINS)
 
 
 @dataclass(frozen=True, kw_only=True)
