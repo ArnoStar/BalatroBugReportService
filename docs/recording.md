@@ -37,7 +37,10 @@ apart from the events, so a report always has them.
 3. Each recorded `input` after the start waits for as many `action` ends as
    had happened before it, then for the same delay after the last one, so a
    different API latency doesn't shift the clicks. Inputs of different
-   recorded frames (`f`) go in different frames: a drag stays a drag.
+   recorded frames (`f`) go in different frames: a drag stays a drag. An
+   input that comes due while the game ignores input (a screen wipe, the
+   controls locked: a slower screen) waits, and so do the next ones until the
+   next action end: the player's input was taken, so the game wasn't locked.
 4. It plays at the player's game speed and with their Play/Discard layout
    (`client.settings`: what a click hits depends on them), and gives the
    developer theirs back when it ends.
