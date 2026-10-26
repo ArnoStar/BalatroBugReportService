@@ -38,7 +38,10 @@ apart from the events, so a report always has them.
    had happened before it, then for the same delay after the last one, so a
    different API latency doesn't shift the clicks. Inputs of different
    recorded frames (`f`) go in different frames: a drag stays a drag.
-4. The replay compares each action it makes with the player's and says where
+4. It plays at the player's game speed and with their Play/Discard layout
+   (`client.settings`: what a click hits depends on them), and gives the
+   developer theirs back when it ends.
+5. The replay compares each action it makes with the player's and says where
    they differ.
 
 `?report=<id>&at=<version>` only rebuilds the run at that version;
