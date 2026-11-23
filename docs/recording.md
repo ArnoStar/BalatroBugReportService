@@ -19,7 +19,7 @@ apart from the events, so a report always has them.
 
 | `k` | Fields | |
 |---|---|---|
-| `input` | `type` (`move`, `down`, `up`, `key`, `keyup`), `x`, `y` (game units, the room's coordinates), `button`, `key` (KeyboardEvent.key), `f` (the game frame) | the player's mouse and keys. Moves are recorded 30 times a second, every one while a button is held |
+| `input` | `type` (`move`, `down`, `up`, `key`, `keyup`), `x`, `y` (game units, the room's coordinates), `button`, `key` (KeyboardEvent.key), `f` (the game frame), `touch` (`true`: a finger, the game's touch mode) | the player's mouse, fingers and keys. Moves are recorded 30 times a second, every one while a button is held (or a finger is down). A second finger is `button` 2 |
 | `api` | `method`, `path`, `status`, `ms`, `rid`, `req`, `res` | a call to the game API. `rid` is the request id the API logged it under (`X-Request-ID`). Only the last 4 responses are whole; older ones are digests (version, phase, state, hand ids, jokers) |
 | `action` | `phase` (`start`, `end`, `refused`), `type`, `action` (start), `version`, `error` (refused) | a player action: what was sent, and the run's version once it played |
 | `run` | `id`, `version` | a run opened (new, or continued): where a replay starts |
